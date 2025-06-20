@@ -1,91 +1,232 @@
-Bookstore API Server and Frontend
-This project includes a Node.js API server built with Express and MongoDB for managing books, and a React frontend for interacting with the API.
-APIs Created
+# Bookstore API Server and Frontend
 
-GET /api/books
+This project consists of a Node.js API server built with Express and MongoDB for managing a bookstore's inventory and a React frontend for a user-friendly interface to interact with the API.
 
-Retrieves all books
-Response: Array of book objects
-Sample Response: [{ "_id": "123", "title": "Book Title", "author": "Author Name", "year": 2020, "genre": "Fiction" }, ...]
+## Project Overview
 
-GET /api/books/:id
+- **Backend**: Node.js with Express, connected to MongoDB for CRUD operations on book data.
+- **Frontend**: React single-page application styled with Tailwind CSS, using Axios for API requests.
+- **Features**: View, add, edit, and delete books via both API and frontend interface.
 
-Retrieves a single book by ID
-Response: Book object or 404 if not found
-Sample Response: { "\_id": "123", "title": "Book Title", "author": "Author Name", "year": 2020, "genre": "Fiction" }
+## API Endpoints
 
-POST /api/books
+### `GET /api/books`
 
-Creates a new book
-Request Body: { "title": "string", "author": "string", "year": number, "genre": "string" }
-Response: Created book object
-Sample Response: { "\_id": "123", "title": "Book Title", "author": "Author Name", "year": 2020, "genre": "Fiction" }
+- **Description**: Retrieves all books.
+- **Response**: Array of book objects.
+- **Sample Response**:
+  ```json
+  [
+    { "_id": "123", "title": "Book Title", "author": "Author Name", "year": 2020, "genre": "Fiction" },
+    ...
+  ]
+  ```
 
-PUT /api/books/:id
+### `GET /api/books/:id`
 
-Updates a book by ID
-Request Body: { "title": "string", "author": "string", "year": number, "genre": "string" }
-Response: Updated book object or 404 if not found
-Sample Response: { "\_id": "123", "title": "Updated Title", "author": "Author Name", "year": 2021, "genre": "Fiction" }
+- **Description**: Retrieves a single book by ID.
+- **Response**: Book object or 404 if not found.
+- **Sample Response**:
+  ```json
+  {
+    "_id": "123",
+    "title": "Book Title",
+    "author": "Author Name",
+    "year": 2020,
+    "genre": "Fiction"
+  }
+  ```
 
-DELETE /api/books/:id
+### `POST /api/books`
 
-Deletes a book by ID
-Response: Success message or 404 if not found
-Sample Response: { "message": "Book deleted successfully" }
+- **Description**: Creates a new book.
+- **Request Body**:
+  ```json
+  { "title": "string", "author": "string", "year": number, "genre": "string" }
+  ```
+- **Response**: Created book object.
+- **Sample Response**:
+  ```json
+  {
+    "_id": "123",
+    "title": "Book Title",
+    "author": "Author Name",
+    "year": 2020,
+    "genre": "Fiction"
+  }
+  ```
 
-Database
+### `PUT /api/books/:id`
 
-MongoDB: Stores book data with fields for title, author, year, and genre.
-Integration: Uses Mongoose ODM for schema definition and database operations.
+- **Description**: Updates a book by ID.
+- **Request Body**:
+  ```json
+  { "title": "string", "author": "string", "year": number, "genre": "string" }
+  ```
+- **Response**: Updated book object or 404 if not found.
+- **Sample Response**:
+  ```json
+  {
+    "_id": "123",
+    "title": "Updated Title",
+    "author": "Author Name",
+    "year": 2021,
+    "genre": "Fiction"
+  }
+  ```
 
-Frontend
+### `DELETE /api/books/:id`
 
-React: A single-page application using React for UI, Tailwind CSS for styling, and Axios for API requests.
-Features: List books, add new books, edit existing books, and delete books via a user-friendly interface.
+- **Description**: Deletes a book by ID.
+- **Response**: Success message or 404 if not found.
+- **Sample Response**:
+  ```json
+  { "message": "Book deleted successfully" }
+  ```
 
-Setup Instructions
+## Database
 
-Prerequisites:
+- **Technology**: MongoDB
+- **Schema**: Books collection with fields:
+  - `title`: String (required)
+  - `author`: String (required)
+  - `year`: Number (required)
+  - `genre`: String (required)
+- **Integration**: Uses Mongoose ODM for schema definition and database operations.
 
-Node.js (v14 or higher)
-MongoDB (running locally on default port 27017)
+## Frontend
 
-Installation:
-git clone <repository-url>
-cd bookstore-api
-npm install
+- **Framework**: React (single-page application)
+- **Styling**: Tailwind CSS
+- **API Client**: Axios for making HTTP requests
+- **Features**:
+  - Display a list of books
+  - Form to add new books
+  - Edit existing books
+  - Delete books
+  - Responsive and user-friendly interface
 
-Run the Server:
-npm start
+## Project Structure
 
-The server will run on http://localhost:3000.
+```
+bookstore-api/
+├── backend/
+│   ├── models/
+│   │   └── Book.js         # Mongoose schema for books
+│   ├── routes/
+│   │   └── books.js        # API routes
+│   ├── server.js           # Express server setup
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── App.js          # Main React component
+│   │   └── index.js        # React entry point
+│   ├── public/
+│   │   └── index.html      # HTML template
+│   └── package.json
+├── .env                    # Environment variables
+└── README.md
+```
 
-Run the Frontend:
+## Setup Instructions
 
-Place index.html in a directory (e.g., frontend).
-Serve index.html using a simple HTTP server (e.g., Live Server in VS Code, or npx http-server).
-Open the browser to the served URL (e.g., http://localhost:8080).
+### Prerequisites
 
-Testing APIs
-Use curl or tools like Postman to test the APIs. Examples:
+- Node.js (v14 or higher)
+- MongoDB (running locally on default port 27017 or provide a MongoDB URI)
+- Git
 
-Get all books:
-curl http://localhost:3000/api/books
+### Installation
 
-Create a book:
-curl -X POST http://localhost:3000/api/books -H "Content-Type: application/json" -d '{"title":"The Great Gatsby","author":"F. Scott Fitzgerald","year":1925,"genre":"Fiction"}'
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd bookstore-api
+   ```
+2. Install backend dependencies:
+   ```bash
+   cd backend
+   npm install
+   ```
+3. Install frontend dependencies:
+   ```bash
+   cd ../frontend
+   npm install
+   ```
 
-Update a book:
-curl -X PUT http://localhost:3000/api/books/<book-id> -H "Content-Type: application/json" -d '{"title":"The Great Gatsby","author":"F. Scott Fitzgerald","year":1926,"genre":"Fiction"}'
+### Environment Variables
 
-Delete a book:
-curl -X DELETE http://localhost:3000/api/books/<book-id>
+Create a `.env` file in the `backend` directory with the following:
 
-Notes
+```
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/bookstore
+```
 
-Ensure MongoDB is running before starting the server.
-The server includes error handling for invalid requests and non-existent resources.
-CORS is enabled to allow the frontend to make requests to the server.
-The frontend requires the server to be running at http://localhost:3000.
-For production, consider using a proper build process for the React app (e.g., Vite or Create React App).
+### Run the Backend
+
+1. Start MongoDB (ensure it's running).
+2. In the `backend` directory, run:
+   ```bash
+   npm start
+   ```
+   The server will be available at `http://localhost:3000`.
+
+### Run the Frontend
+
+1. In the `frontend` directory, run:
+   ```bash
+   npm start
+   ```
+   The frontend will be available at `http://localhost:3001` (or the port specified by your React setup).
+2. Alternatively, serve the `frontend/public/index.html` using a simple HTTP server:
+   ```bash
+   npx http-server frontend/public -p 8080
+   ```
+   Access it at `http://localhost:8080`.
+
+### Testing APIs
+
+Use tools like Postman or curl to test the APIs. Examples:
+
+- Get all books:
+
+  ```bash
+  curl http://localhost:3000/api/books
+  ```
+
+- Create a book:
+
+  ```bash
+  curl -X POST http://localhost:3000/api/books -H "Content-Type: application/json" -d '{"title":"The Great Gatsby","author":"F. Scott Fitzgerald","year":1925,"genre":"Fiction"}'
+  ```
+
+- Update a book:
+
+  ```bash
+  curl -X PUT http://localhost:3000/api/books/<book-id> -H "Content-Type: application/json" -d '{"title":"The Great Gatsby","author":"F. Scott Fitzgerald","year":1926,"genre":"Fiction"}'
+  ```
+
+- Delete a book:
+  ```bash
+  curl -X DELETE http://localhost:3000/api/books/<book-id>
+  ```
+
+## Notes
+
+- Ensure MongoDB is running before starting the server.
+- The backend includes error handling for invalid requests and non-existent resources.
+- CORS is enabled to allow frontend requests from `http://localhost:3001` or `http://localhost:8080`.
+- For production:
+  - Use a proper build process for the React app (e.g., `npm run build` with Vite or Create React App).
+  - Host the backend on a platform like Heroku or Render.
+  - Use a cloud MongoDB service like MongoDB Atlas.
+- The frontend assumes the backend is running at `http://localhost:3000`. Update the API base URL in the frontend code if deploying to different hosts.
+
+## Deployment Considerations
+
+- **Backend**: Use environment variables for sensitive data (e.g., MongoDB URI).
+- **Frontend**: Build the React app and serve it with a static file server (e.g., Nginx).
+- **Database**: Use MongoDB Atlas for a managed database in production.
+- **CORS**: Update CORS settings in the backend to allow requests only from the production frontend domain.
