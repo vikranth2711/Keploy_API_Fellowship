@@ -2,29 +2,24 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/bookstore', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+// MongoDB connection - only connect if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect('mongodb://localhost:27017/bookstore', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
+}
 
-// Book Schema
-const bookSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  year: { type: Number, required: true },
-  genre: { type: String, required: true },
-});
-
-const Book = mongoose.model('Book', bookSchema);
+// Import Book model instead of defining it inline
+const { Book } = require('./models/Book');
 
 // API Endpoints
 
@@ -92,6 +87,12 @@ app.delete('/api/books/:id', async (req, res) => {
 });
 
 // Start server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+if (require.main === module) {
+  // Only start the server if this file is run directly (not required by tests)
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
+
+// Export for testing
+module.exports = app;
