@@ -236,7 +236,7 @@ MONGO_URI=mongodb://localhost:27017/bookstore
 
 ### Test Coverage
 
-The test suite achieves **85% code coverage** across unit, integration, and API tests. Below is a screenshot of the coverage report:
+The test suite achieves **75% code coverage** across unit, integration, and API tests. Below is a screenshot of the coverage report:
 
 ![Test Coverage Screenshot](coverage-screenshot.png)
 
