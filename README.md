@@ -238,7 +238,7 @@ MONGO_URI=mongodb://localhost:27017/bookstore
 
 The test suite achieves **85% code coverage** across unit, integration, and API tests. Below is a screenshot of the coverage report:
 
-![Test Coverage Screenshot](coverage/coverage-screenshot.png)
+![Test Coverage Screenshot](coverage-screenshot.png)
 
 _Note_: To generate the coverage screenshot, run `npm run test:coverage` and capture the output from the `coverage/lcov-report/index.html` file.
 
@@ -323,6 +323,4 @@ Use tools like Postman or curl to test the APIs. Examples:
 ## GitHub Repository
 
 The complete codebase, including tests, is available at:
-[https://github.com/your-username/bookstore-api](https://github.com/your-username/bookstore-api)
-
-_Note_: Replace `your-username` with your actual GitHub username.
+[https://github.com/vikranth2711/Keploy_API_Fellowship_Session2](https://github.com/vikranth2711/Keploy_API_Fellowship_Session2)
