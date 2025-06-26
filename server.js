@@ -1,12 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const yaml = require('js-yaml');
+const fs = require('fs');
+const path = require('path');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Load the OpenAPI specification
+const openApiPath = path.join(__dirname, 'openapi.yaml');
+const openApiSpec = yaml.load(fs.readFileSync(openApiPath, 'utf8'));
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
 
 // MongoDB connection - only connect if not in test environment
 if (process.env.NODE_ENV !== 'test') {
