@@ -16,6 +16,8 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
+    const API_BASE_URL = 'https://b353-2409-40f4-411e-bbb2-202f-483e-ef4a-b158.ngrok-free.app/';
+
     const App = () => {
       const [books, setBooks] = useState([]);
       const [formData, setFormData] = useState({ title: '', author: '', year: '', genre: '' });
@@ -24,7 +26,8 @@
       // Fetch all books
       const fetchBooks = async () => {
         try {
-          const res = await axios.get('http://localhost:3000/api/books');
+          // Instead of axios.get('http://localhost:3000/api/books')
+          const res = await axios.get(`${API_BASE_URL}/books`);
           setBooks(res.data);
         } catch (err) {
           console.error('Error fetching books:', err);
@@ -46,11 +49,12 @@
         try {
           if (editingId) {
             // Update book
-            await axios.put(`http://localhost:3000/api/books/${editingId}`, formData);
+            await axios.put(`${API_BASE_URL}/books/${editingId}`, formData);
             setEditingId(null);
           } else {
             // Create book
-            await axios.post('http://localhost:3000/api/books', formData);
+            // Instead of axios.post('http://localhost:3000/api/books', formData)
+            await axios.post(`${API_BASE_URL}/books`, formData);
           }
           setFormData({ title: '', author: '', year: '', genre: '' });
           fetchBooks();
@@ -68,7 +72,7 @@
       // Handle delete button
       const handleDelete = async (id) => {
         try {
-          await axios.delete(`http://localhost:3000/api/books/${id}`);
+          await axios.delete(`${API_BASE_URL}/books/${id}`);
           fetchBooks();
         } catch (err) {
           console.error('Error deleting book:', err);
